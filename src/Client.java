@@ -22,16 +22,11 @@ public class Client extends Thread {
                          new OutputStreamWriter(socket.getOutputStream()), true);
                  Scanner scanner = new Scanner(System.in)) {
 
-                int number;
-
                 while (true) {
                     System.out.println("Введите число: ");
-                    number = scanner.nextInt();
+                    int number = scanner.nextInt();
                     out.println(number);
-                    if (number == 0) {
-                        break;
-                    }
-                    System.out.println("SERVER: " + in.read());
+                    System.out.println("SERVER: " + in.readLine());
                 }
             }
         } catch (IOException e) {

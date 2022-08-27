@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class Server extends Thread {
 
@@ -25,10 +26,12 @@ public class Server extends Thread {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
 
-                    int number;
-
-                    while ((number = in.read()) != 0); {
-                        out.println("Число ряда Фибоначчи: " + fib(number));
+                    while (true) {
+                        int number = Integer.parseInt(in.readLine());
+                        if (number != 0) {
+                            int fib = fib(number);
+                            out.println("Число ряда Фибоначчи: " + fib);
+                        }
                     }
                 }
             } catch (IOException i) {
@@ -38,7 +41,7 @@ public class Server extends Thread {
     }
 
     public int fib(int n) {
-        if(n == 1 || n == 0) {
+        if (n == 1 || n == 0) {
             return n;
         }
         return fib(n - 1) + fib(n - 2);
